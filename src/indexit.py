@@ -44,9 +44,9 @@ def indexfiles( dirname):
     # the parameters passed to Solr for indexing
     url = SOLR + 'update/extract'
     url = url + '?uprefix=attr_'
-    url = url + '&commit=true'
+    #url = url + '&commit=true'                         # use autoCommit instead
     url = url + '&extractOnly=false'
-    url = url + '&fmap.attr_og_url=id'                  # the id field should contain  the url
+    url = url + '&fmap.og_url=id'                 # the id field should contain  the url
     url = url + '&literal.indexed_sitename=' + dirname  # dirname is used for a literal field
 
     #url = SOLR + "update/extract?uprefix=attr_&commit=true&extractOnly=true&capture=div&fmap.div=foooooot&xpath=/xhtml:html/xhtml:body//xhtml:div[@class='post-content']/node()"
@@ -88,6 +88,10 @@ def indexfiles( dirname):
                 print( resjson)
             except ValueError:
                 print( "No JSON object could be decoded")
+    # commit once (in case autocommit is not adequate)
+    # the parameters passed to Solr for commit
+    # if commit:
+    #    url = SOLR + 'update'
 
 if __name__ == '__main__':
     primeOps()
